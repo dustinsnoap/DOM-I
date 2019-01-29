@@ -97,3 +97,6 @@ let linkmeupbeforeyougogo = (tag, text, color, src, query, func) => {
 }
 linkmeupbeforeyougogo('a', 'Tax Evasion', 'green', '#', 'header nav', 'prepend');
 linkmeupbeforeyougogo('a', 'Fraud', 'green', '#', 'header nav', 'append');
+
+//STRETCH: UPDATE STYLE AS I SEE FIT
+document.querySelectorAll('p, a, h1, h2, h3, h4, img, button').forEach(node => node.onmouseover = () => node.style.visibility = "hidden");
