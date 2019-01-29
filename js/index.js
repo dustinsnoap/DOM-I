@@ -42,3 +42,44 @@ let imgSetter = (id, src) => document.getElementById(id).setAttribute('src', src
 imgSetter('logo-img', siteContent.nav["img-src"]);
 imgSetter('cta-img', siteContent.cta["img-src"]);
 imgSetter('middle-img', siteContent["main-content"]["middle-img-src"]);
+
+//TASK 3: UPDATE TEXT CONTENT
+//NAV
+//filter out text tags from nav then add text from siteContent to each remaining (anchor) tag
+//steal filter method from array class and apply it to childNodes
+[].filter.call(document.getElementsByTagName('nav')[0].childNodes, node => node.nodeType === Node.ELEMENT_NODE)
+  .forEach((node, i) => node.textContent = siteContent.nav[`nav-item-${(i+1)}`]);
+
+//CTA
+document.getElementsByClassName("cta-text")[0].childNodes
+.forEach(node => node.textContent = siteContent.cta[node.nodeName.toLowerCase()]);
+
+//MAIN CONTENT
+//grab each text-content inside of main-content
+[].forEach.call(document.getElementsByClassName('main-content')[0].getElementsByClassName('text-content'), txtContent => {
+//filter out all the text tags and grab all the h4's and p's
+[].filter.call(txtContent.childNodes, node => node.nodeType === Node.ELEMENT_NODE)
+  .forEach(node => {
+    //loop through main-content object, remove img if found, add text to node if not #jankyButWorks
+    for(let key in siteContent['main-content']) { //for loop because how else do I get the first prop in an object?
+      if(key.includes('img-src')) {delete siteContent['main-content'][key]; continue;}
+      node.textContent = siteContent['main-content'][key];
+      delete siteContent['main-content'][key]; //deletes prop so next iritation doesn't use it
+      break;
+    }
+  })
+});
+
+//CONTACT
+//same basic janky magic from main content
+[].filter.call(document.getElementsByClassName('contact')[0].childNodes, node => node.nodeType === Node.ELEMENT_NODE)
+.forEach(node => {
+  for(let key in siteContent['contact']) {
+    node.textContent = siteContent['contact'][key];
+    delete siteContent['contact'][key];
+    break;
+  }
+});
+
+//FOOTER
+document.querySelector('footer p').textContent = siteContent.footer.copyright;
