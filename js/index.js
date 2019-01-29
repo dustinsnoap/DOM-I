@@ -37,6 +37,8 @@ const siteContent = {
   },
 };
 
-// Example: Update the img src for the logo
-let logo = document.getElementById("logo-img");
-logo.setAttribute('src', siteContent["nav"]["img-src"])
+//TASK 2: UPDATE IMAGE PATHS
+let imgSetter = (id, src) => document.getElementById(id).setAttribute('src', src);
+imgSetter('logo-img', siteContent.nav["img-src"]);
+imgSetter('cta-img', siteContent.cta["img-src"]);
+imgSetter('middle-img', siteContent["main-content"]["middle-img-src"]);
