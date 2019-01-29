@@ -48,7 +48,10 @@ imgSetter('middle-img', siteContent["main-content"]["middle-img-src"]);
 //filter out text tags from nav then add text from siteContent to each remaining (anchor) tag
 //steal filter method from array class and apply it to childNodes
 [].filter.call(document.getElementsByTagName('nav')[0].childNodes, node => node.nodeType === Node.ELEMENT_NODE)
-  .forEach((node, i) => node.textContent = siteContent.nav[`nav-item-${(i+1)}`]);
+  .forEach((node, i) => {
+    node.textContent = siteContent.nav[`nav-item-${(i+1)}`];
+    node.setAttribute('style', 'color: green;'); //TASK 4
+});
 
 //CTA
 document.getElementsByClassName("cta-text")[0].childNodes
@@ -83,3 +86,14 @@ document.getElementsByClassName("cta-text")[0].childNodes
 
 //FOOTER
 document.querySelector('footer p').textContent = siteContent.footer.copyright;
+
+//TASK 4: APPEND AND PREPEND LINKS TO NAV
+let linkmeupbeforeyougogo = (tag, text, color, src, query, func) => {
+  let item = document.createElement(tag);
+  item.setAttribute('style', `color: ${color}`);
+  item.textContent = text;
+  item.href = src;
+  document.querySelector(query)[func](item);
+}
+linkmeupbeforeyougogo('a', 'Tax Evasion', 'green', '#', 'header nav', 'prepend');
+linkmeupbeforeyougogo('a', 'Fraud', 'green', '#', 'header nav', 'append');
